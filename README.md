@@ -1,18 +1,118 @@
-# cobot_UR_force_PID_controller
-Design of force PID controller on UR5 
+# Force PID Controller for Universal Robots
 
-HYBRID COMPLIANCE CONTROL OF COLLABORATIVE ROBOT
+This project implements a hybrid compliance control system for Universal Robots (UR) collaborative robots, specifically designed for deburring processes. The system features an indirect hybrid position/force controller with adjustable parameters.
 
-SUMMARY
+## Overview
 
-Robots are valuable part of the manufacturing in industry for their capability to be precise, consistent, and fast. Therefore, robotics is an essential piece of Industry 4.0. In processes that need high speed/high force robots are preferred, because they are programmed to bring maximum efficiency. Various control schemes are developed for automation of any kind of robot and the control is done via sensors and actuators. Compliant control scheme, allow to adjust force and torque exerted by environment onto robot manipulator during operations.
+The project focuses on developing a force control system that allows:
+- Precise force control during deburring operations
+- Adjustable control parameters for different materials and surfaces
+- Real-time force monitoring and control
+- Hybrid position/force control implementation
 
-In this thesis an indirect hybrid position/force controller is developed using a UR10 collaborative robot, for deburring processes. Every deburring process may require specific force control parameters due to variations in workpiece material, form, burr heights etc. The developed control scheme aims to provide flexibility by making these control parameters adjustable. So that, same manipulator can be used with different components that require specific deburring parameters. Whereas the built-in force controller in the robot is closed to the end-user.
+## Technical Implementation
 
-First, kinematic modelling of general robot structures is explained. UR10 kinematics is shared using Denavit - Hartenberg parameters. Next, dynamic modeling methods are explained which defines the relationship between robot motion, and manipulator forces/torques. Jacobian concept is summarized, because CB3 series Universal Robots do not have a pre-installed F/T transducer at end-effector to measure the forces and torques. The controller is estimating these values on tool, through Jacobian and motor torque constants at each joint. During testing, noise is observed in the data collected, hence low-pass filters are introduced. It is concluded that Bessel filter is most suitable due to its characteristics in magnitude and phase responses through experiments. Motion control is explored through various control schemes in free and complaint environments. Compliant schemes are used in applications where force and position are controlled at different directions in a coordinate frame. Hybrid position/force control schemes are explained, and block diagrams are shared.
+### Hardware Requirements
+- Universal Robot (UR10/UR5)
+- Network connection to the robot (default IP: 192.168.5.1)
+- RTDE interface enabled on port 30004
 
-An indirect hybrid compliant control scheme is created to be used with UR controller. The control scheme includes proportional, integral and derivative gains that are determined through testing. The control scheme is tested on a flat surface and a curved pipe. Reaction force and displacement results are compared with results from tests with the built-in force controller.
+### Software Components
 
-In conclusion, comparison results are discussed. Shortcomings of the study and their impact are shared. Future possible improvements are recommended.
+#### Force Control System
+- Implementation of a PID controller for force control
+- Sampling rate: 20Hz (RTDE communication)
+- Configurable control parameters:
+  - Proportional gain (Kp)
+  - Integral gain (Ki)
+  - Derivative gain (Kd)
+
+#### Signal Processing
+- Bessel low-pass filter implementation
+  - Filter order: 2
+  - Cutoff frequency: 1.732 Hz
+  - Sampling frequency: 50 Hz
+- Real-time force data filtering for noise reduction
+
+#### Data Collection
+The system collects and logs various robot states including:
+- TCP forces and torques
+- Joint positions and velocities
+- Actual TCP pose and speed
+- Control currents
+- Filtered force measurements
+
+### Key Features
+
+1. **Adaptive Force Control**
+   - Dynamic force reference setting
+   - Adjustable PID gains for different applications
+   - Real-time force error compensation
+
+2. **Data Logging**
+   - Comprehensive data collection for analysis
+   - CSV file export for post-processing
+   - Multiple sensor data streams recorded
+
+3. **Safety Features**
+   - Watchdog implementation for system monitoring
+   - Controlled force application
+   - Emergency stop capability
+
+## Technical Details
+
+### Kinematics
+- Full implementation of UR robot kinematics
+- Denavit-Hartenberg parameters for precise positioning
+- Jacobian-based force/torque estimation
+
+### Control Architecture
+- Hybrid position/force control scheme
+- Indirect force control through joint torque estimation
+- Real-time parameter adjustment capability
+
+### Signal Processing
+- Bessel filter implementation for optimal phase response
+- Real-time data filtering
+- Noise reduction while maintaining system responsiveness
+
+## Results and Performance
+
+The system has been tested on:
+- Flat surfaces
+- Curved pipes
+- Various material types
+
+Performance metrics include:
+- Force tracking accuracy
+- Position control precision
+- System response time
+
+## Future Improvements
+
+Potential areas for enhancement include:
+- Advanced filtering techniques
+- Machine learning-based parameter optimization
+- Enhanced surface detection
+- Improved force control algorithms
+
+## Dependencies
+
+- Python 3.x
+- NumPy
+- SciPy
+- Matplotlib
+- RTDE Interface
+- Universal Robots RTDE library
+
+## Usage
+
+1. Configure the robot IP and port in the configuration file
+2. Set up the RTDE interface
+3. Adjust control parameters as needed
+4. Run the control script
+5. Monitor and analyze the collected data
+
+For detailed implementation and testing procedures, refer to the technical documentation.
 
 
