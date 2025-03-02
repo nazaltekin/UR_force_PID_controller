@@ -14,3 +14,5 @@ First, kinematic modelling of general robot structures is explained. UR10 kinema
 An indirect hybrid compliant control scheme is created to be used with UR controller. The control scheme includes proportional, integral and derivative gains that are determined through testing. The control scheme is tested on a flat surface and a curved pipe. Reaction force and displacement results are compared with results from tests with the built-in force controller.
 
 In conclusion, comparison results are discussed. Shortcomings of the study and their impact are shared. Future possible improvements are recommended.
+
+
