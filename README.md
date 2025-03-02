@@ -1,4 +1,4 @@
-# UR_force_PID_controller
+# cobot_UR_force_PID_controller
 Design of force PID controller on UR5 
 
 HYBRID COMPLIANCE CONTROL OF COLLABORATIVE ROBOT
